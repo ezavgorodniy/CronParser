@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CronParser.Core.Exceptions;
 using CronParser.Core.Interfaces;
 
 namespace CronParser.Core
@@ -28,7 +29,7 @@ namespace CronParser.Core
         {
             if (s.Length > captionColumnSize)
             {
-                throw new Exception("String too huge for caption column.");
+                throw new ParserException("String too huge for caption column.");
             }
 
             var res = new char[captionColumnSize];

@@ -7,12 +7,20 @@ namespace CronParser
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(args[0]);
-            var parser = new Parser();
-            var parseResult = parser.Parse(args[0]);
+            try
+            {
+                Console.WriteLine(args[0]);
+                var parser = new Parser();
+                var parseResult = parser.Parse(args[0]);
 
-            var columnResultViewer = new ColumnResultViewer();
-            Console.Write(columnResultViewer.Output(parseResult));
+                var columnResultViewer = new ColumnResultViewer();
+                Console.Write(columnResultViewer.Output(parseResult));
+            }
+            catch (Exception exc)
+            {
+                // TODO: process exception in a better way
+                Console.WriteLine(exc.Message);
+            }
         }
     }
 }
