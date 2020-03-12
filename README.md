@@ -10,6 +10,7 @@ Than cd into the project and run
 Examples of commands are:
   
 d:\Personal\CronParser\src>dotnet run --project CronParser
+
 d:\Personal\CronParser\src>dotnet build
   
 To familiarise yourself with a code - debug how CronParser.Tests.FunctionalTests is working. 
