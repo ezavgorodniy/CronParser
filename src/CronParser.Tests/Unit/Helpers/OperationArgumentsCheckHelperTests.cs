@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CronParser.Core.Internal.Helpers;
 using Xunit;
 
-namespace CronParser.Tests.Unit.Operations
+namespace CronParser.Tests.Unit.Helpers
 {
     public class OperationArgumentsCheckHelperTests
     {

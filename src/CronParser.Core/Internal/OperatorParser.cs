@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using CronParser.Core.Exceptions;
 using CronParser.Core.Internal.Interfaces;
 using CronParser.Core.Internal.Operations;
 
-[assembly: InternalsVisibleTo("CronParser.Tests")]
 namespace CronParser.Core.Internal
 {
     internal class OperatorParser : IOperatorParser
     {
+        private readonly IWordsFinderHelper _wordFinderHelper;
+        private readonly IDigitsHelper _digitsHelper;
         private readonly int _minRange;
         private readonly int _maxRange;
         private readonly Dictionary<string, int> _valueDictionary;
@@ -19,9 +19,12 @@ namespace CronParser.Core.Internal
         /// </summary>
         private readonly Dictionary<int, bool> _allowedValues;
 
-        public OperatorParser(int minRange, int maxRange, 
-            Dictionary<string, int> valueDictionary = null)
+        public OperatorParser(IWordsFinderHelper wordsFinderHelper, IDigitsHelper digitsHelper, int minRange,
+            int maxRange, Dictionary<string, int> valueDictionary = null)
         {
+            _wordFinderHelper = wordsFinderHelper;
+            _digitsHelper = digitsHelper;
+
             _minRange = minRange;
             _maxRange = maxRange;
 
@@ -59,15 +62,41 @@ namespace CronParser.Core.Internal
             throw new NotImplementedException();
         }
 
-        private static IOperation ParseOperation(string s)
+        private IOperation ParseOperation(string s)
         {
             if (s == "*")
             {
                 return new EverythingOperation();
             }
 
+            s = ApplyDictionary(s);
+            if (_digitsHelper.IsNumber(s))
+            {
+                return new SingleOperation();
+            }
+
             // TODO: parse other operations
             return null;
         }
+
+        private string ApplyDictionary(string s)
+        {
+            var result = s;
+            var parsedWords = _wordFinderHelper.FindWords(s);
+            foreach (var parsedWord in parsedWords)
+            {
+                if (_valueDictionary != null && _valueDictionary.ContainsKey(parsedWord))
+                {
+                    result = result.Replace(parsedWord, _valueDictionary[parsedWord].ToString());
+                }
+                else
+                {
+                    throw new ParserException($"Unknown word {parsedWord}");
+                }
+            }
+
+            return result;
+        }
+
     }
 }
