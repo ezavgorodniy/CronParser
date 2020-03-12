@@ -57,6 +57,9 @@ namespace CronParser.Core.Internal
                     continue;
                 }
 
+                // it's basic operation which is supported by every version of cron syntax which I found over the internet
+                // TODO: extend here if you have cross operations like 15W, 6L, LW or 6#3 as it require aknowledge about year
+
                 throw new ParserException($"Unable to parse operation: {operation}");
             }
 
@@ -94,7 +97,6 @@ namespace CronParser.Core.Internal
                 return new StepOperation();
             }
 
-            // TODO: parse other operations
             return null;
         }
 
