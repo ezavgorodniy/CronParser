@@ -7,6 +7,13 @@ namespace CronParser.Core.Internal.Helpers
 {
     internal class WordsFinderHelper : IWordsFinderHelper
     {
+        private readonly IDigitsHelper _digitsHelper;
+
+        public WordsFinderHelper(IDigitsHelper digitsHelper)
+        {
+            _digitsHelper = digitsHelper;
+        }
+
         public ICollection<string> FindWords(string s)
         {
             if (string.IsNullOrEmpty(s))
@@ -25,7 +32,12 @@ namespace CronParser.Core.Internal.Helpers
                     i++;
                 }
 
-                result.Add(currentString.ToString());
+                var addedString = currentString.ToString();
+                if (addedString != "*" && !_digitsHelper.IsNumber(addedString))
+                {
+                    result.Add(currentString.ToString());
+                }
+
                 i++;
             }
 
