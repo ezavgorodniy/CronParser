@@ -76,7 +76,7 @@ namespace CronParser.Tests.Unit
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(ExpectedKnownWord))
                 .Returns(new[] {ExpectedKnownWord});
 
-            var actualAllowedValues =  _operatorParser.ParseAllowedValues(ExpectedKnownWord);
+            var actualAllowedValues = _operatorParser.ParseAllowedValues(ExpectedKnownWord);
 
             Assert.Single(actualAllowedValues);
             Assert.Equal(ExpectedMatchedDictionaryValue, actualAllowedValues[0]);
@@ -85,9 +85,19 @@ namespace CronParser.Tests.Unit
         [Fact]
         public void RangeOperationExpectToBeParsed()
         {
+            const int expectedMinRange = 1;
+            const int expectedMaxRange = 3;
+
             // TODO: uncomment it as soon as implemented
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
-            Assert.Throws<ParserException>(() => _operatorParser.ParseAllowedValues("1-3"));
+            
+            var actualAllowedValues = _operatorParser.ParseAllowedValues($"{expectedMinRange}-{expectedMaxRange}");
+
+            Assert.Equal(expectedMaxRange - expectedMinRange + 1, actualAllowedValues.Length);
+            for (int i = 0; i < actualAllowedValues.Length; i++)
+            {
+                Assert.Equal(expectedMinRange + i, actualAllowedValues[i]);
+            }
         }
 
         [Fact]

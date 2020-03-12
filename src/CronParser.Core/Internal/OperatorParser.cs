@@ -84,6 +84,12 @@ namespace CronParser.Core.Internal
                 return new SingleOperation();
             }
 
+            if (s.Contains('-'))
+            {
+                return new RangeOperation();
+            }
+
+
             // TODO: parse other operations
             return null;
         }
