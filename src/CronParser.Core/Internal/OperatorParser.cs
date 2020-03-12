@@ -49,7 +49,7 @@ namespace CronParser.Core.Internal
             // TODO: double check if it's trimmed
             foreach (var operation in operations)
             {
-                var operationWithReplacedWords = ApplyDictionary(s);
+                var operationWithReplacedWords = ApplyDictionary(operation);
                 var parsedOperation = ParseOperation(operationWithReplacedWords);
                 if (parsedOperation != null)
                 {

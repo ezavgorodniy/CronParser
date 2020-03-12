@@ -74,7 +74,7 @@ namespace CronParser.Tests.Unit
         {
             _mockDigitsHelper.Setup(helper => helper.IsNumber(ExpectedMatchedDictionaryValue.ToString())).Returns(true);
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(ExpectedKnownWord))
-                .Returns(new[] {ExpectedKnownWord});
+                .Returns(new[] { ExpectedKnownWord });
 
             var actualAllowedValues = _operatorParser.ParseAllowedValues(ExpectedKnownWord);
 
@@ -83,12 +83,29 @@ namespace CronParser.Tests.Unit
         }
 
         [Fact]
+        public void CommaSeparatedValuesShouldBeParsed()
+        {
+            const int firstExpectedAllowedNumber = 1;
+            const int secondExpectedAllowedNumber = 2;
+            
+            _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
+            _mockDigitsHelper.Setup(helper => helper.IsNumber(firstExpectedAllowedNumber.ToString())).Returns(true);
+            _mockDigitsHelper.Setup(helper => helper.IsNumber(secondExpectedAllowedNumber.ToString())).Returns(true);
+
+
+            var actualAllowedValues = _operatorParser.ParseAllowedValues($"{firstExpectedAllowedNumber},{secondExpectedAllowedNumber}");
+
+            Assert.Equal(2, actualAllowedValues.Length);
+            Assert.Equal(firstExpectedAllowedNumber, actualAllowedValues[0]);
+            Assert.Equal(secondExpectedAllowedNumber, actualAllowedValues[1]);
+        }
+
+        [Fact]
         public void RangeOperationExpectToBeParsed()
         {
             const int expectedMinRange = 1;
             const int expectedMaxRange = 3;
 
-            // TODO: uncomment it as soon as implemented
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
             
             var actualAllowedValues = _operatorParser.ParseAllowedValues($"{expectedMinRange}-{expectedMaxRange}");
@@ -123,7 +140,6 @@ namespace CronParser.Tests.Unit
         [Fact]
         public void TestEverythingOperation()
         {
-            // TODO: uncomment it as soon as implemented
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
 
             var actualAllowedValues = _operatorParser.ParseAllowedValues("*");
