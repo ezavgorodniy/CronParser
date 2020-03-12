@@ -25,7 +25,7 @@ namespace CronParser.Tests.Unit.Operations
         }
 
         [Fact]
-        public void ExpectExceptionOnNonStarString()
+        public void ExpectExceptionOnNonAsteriskString()
         {
             Assert.Throws<ParserException>(() =>
                 _everythingOperation.Apply(new Dictionary<int, bool>(), ExpectedMinRange, ExpectedMaxRange, "*****"));

@@ -101,7 +101,7 @@ namespace CronParser.Tests.Unit
         }
 
         [Fact]
-        public void StepOperationStarExpectToBeParsed()
+        public void StepOperationAsteriskExpectToBeParsed()
         {
             // TODO: uncomment it as soon as implemented
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
