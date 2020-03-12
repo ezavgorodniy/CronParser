@@ -7,11 +7,11 @@ Than cd into the project and run
 - dotnet build 
 - dotnet run --project CronParser "<your-cron-expression>"
   
-  Examples of commands are:
+Examples of commands are:
   
-  d:\Personal\CronParser\src>dotnet run --project CronParser
-  d:\Personal\CronParser\src>dotnet build
+d:\Personal\CronParser\src>dotnet run --project CronParser
+d:\Personal\CronParser\src>dotnet build
   
-  To familiarise yourself with a code - debug how CronParser.Tests.FunctionalTests is working. 
+To familiarise yourself with a code - debug how CronParser.Tests.FunctionalTests is working. 
   
-  Currently CronParser only support basic operations for minutes, hours, days of month, month, day of week. Without any cross operations like 5W (closest weekday to 5th day of month), 6L (last Friday of the month) or 2#2 (second Monday of the month).
+Currently CronParser only support basic operations for minutes, hours, days of month, month, day of week. Without any cross operations like 5W (closest weekday to 5th day of month), 6L (last Friday of the month) or 2#2 (second Monday of the month).
