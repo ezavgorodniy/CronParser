@@ -49,13 +49,14 @@ namespace CronParser.Core.Internal
             // TODO: double check if it's trimmed
             foreach (var operation in operations)
             {
-                var parsedOperation = ParseOperation(operation);
+                var operationWithReplacedWords = ApplyDictionary(s);
+                var parsedOperation = ParseOperation(operationWithReplacedWords);
                 if (parsedOperation != null)
                 {
-                    parsedOperation.Apply(_allowedValues, _minRange, _maxRange, operation);
+                    parsedOperation.Apply(_allowedValues, _minRange, _maxRange, operationWithReplacedWords);
                     continue;
                 }
-                
+
                 throw new ParserException($"Unable to parse operation: {operation}");
             }
 
@@ -69,7 +70,6 @@ namespace CronParser.Core.Internal
                 return new EverythingOperation();
             }
 
-            s = ApplyDictionary(s);
             if (_digitsHelper.IsNumber(s))
             {
                 return new SingleOperation();

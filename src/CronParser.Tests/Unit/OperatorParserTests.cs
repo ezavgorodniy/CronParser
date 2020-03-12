@@ -107,6 +107,7 @@ namespace CronParser.Tests.Unit
         public void TestEverythingOperation()
         {
             // TODO: uncomment it as soon as implemented
+            _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
             Assert.Throws<NotImplementedException>(() => _operatorParser.ParseAllowedValues("*"));
         }
     }
