@@ -7,9 +7,15 @@ namespace CronParser
     {
         static void Main(string[] args)
         {
+            if (args.Length != 1)
+            {
+                Console.WriteLine("Expected format of running is: ");
+                Console.WriteLine("CronParser.exe \"*<your-cron-expression>\"");
+                return;
+            }
+
             try
             {
-                Console.WriteLine(args[0]);
                 var parser = new Parser();
                 var parseResult = parser.Parse(args[0]);
 
