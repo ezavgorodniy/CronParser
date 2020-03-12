@@ -10,7 +10,7 @@ namespace CronParser
             if (args.Length != 1)
             {
                 Console.WriteLine("Expected format of running is: ");
-                Console.WriteLine("CronParser.exe \"*<your-cron-expression>\"");
+                Console.WriteLine("CronParser.exe \"<your-cron-expression>\"");
                 return;
             }
 
