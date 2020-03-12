@@ -76,7 +76,10 @@ namespace CronParser.Tests.Unit
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(ExpectedKnownWord))
                 .Returns(new[] {ExpectedKnownWord});
 
-            Assert.Throws<NotImplementedException>(() => _operatorParser.ParseAllowedValues(ExpectedKnownWord));
+            var actualAllowedValues =  _operatorParser.ParseAllowedValues(ExpectedKnownWord);
+
+            Assert.Single(actualAllowedValues);
+            Assert.Equal(ExpectedMatchedDictionaryValue, actualAllowedValues[0]);
         }
 
         [Fact]
@@ -108,7 +111,14 @@ namespace CronParser.Tests.Unit
         {
             // TODO: uncomment it as soon as implemented
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
-            Assert.Throws<NotImplementedException>(() => _operatorParser.ParseAllowedValues("*"));
+
+            var actualAllowedValues = _operatorParser.ParseAllowedValues("*");
+
+            Assert.Equal(ExpectedMaxRange - ExpectedMinRange + 1, actualAllowedValues.Length);
+            for (int i = 0; i < actualAllowedValues.Length; i++)
+            {
+                Assert.Equal(i + 1, actualAllowedValues[i]);
+            }
         }
     }
 }

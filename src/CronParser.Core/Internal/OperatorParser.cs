@@ -60,7 +60,16 @@ namespace CronParser.Core.Internal
                 throw new ParserException($"Unable to parse operation: {operation}");
             }
 
-            throw new NotImplementedException();
+            var result = new List<int>();
+            for (int i = _minRange; i <= _maxRange; i++)
+            {
+                if (_allowedValues.ContainsKey(i) && _allowedValues[i])
+                {
+                    result.Add(i);
+                }
+            }
+
+            return result.ToArray();
         }
 
         private IOperation ParseOperation(string s)
