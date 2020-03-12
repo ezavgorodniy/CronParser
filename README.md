@@ -7,11 +7,17 @@ Than cd into the project and run
 - dotnet build 
 - dotnet run --project CronParser "<your-cron-expression>"
   
+To run test cd into the project folder and run
+
+- dotnet test
+  
 Examples of commands are:
   
 d:\Personal\CronParser\src>dotnet run --project CronParser
 
 d:\Personal\CronParser\src>dotnet build
+
+d:\Personal\CronParser\src>dotnet test
   
 To familiarise yourself with a code - debug how CronParser.Tests.FunctionalTests is working. 
   
