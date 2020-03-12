@@ -89,6 +89,10 @@ namespace CronParser.Core.Internal
                 return new RangeOperation();
             }
 
+            if (s.Contains('/'))
+            {
+                return new StepOperation();
+            }
 
             // TODO: parse other operations
             return null;

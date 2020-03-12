@@ -100,20 +100,24 @@ namespace CronParser.Tests.Unit
             }
         }
 
-        [Fact]
-        public void StepOperationAsteriskExpectToBeParsed()
+        [Theory]
+        [InlineData("*/2")]
+        [InlineData("1/2")]
+        public void StepOperationExpectToBeParsed(string operation)
         {
-            // TODO: uncomment it as soon as implemented
-            _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
-            Assert.Throws<ParserException>(() => _operatorParser.ParseAllowedValues("*/2"));
-        }
+            const int expectedStart = 1;
+            const int expectedStep = 2;
+            var expectedAnswer = new[] {expectedStart, expectedStart + expectedStep, expectedStart + 2 * expectedStep};
 
-        [Fact]
-        public void StepOperationNumberExpectToBeParsed()
-        {
-            // TODO: uncomment it as soon as implemented
             _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
-            Assert.Throws<ParserException>(() => _operatorParser.ParseAllowedValues("1/2"));
+
+            var actualAllowedValues = _operatorParser.ParseAllowedValues(operation);
+            
+            Assert.Equal(expectedAnswer.Length, actualAllowedValues.Length);
+            for (int i = 0; i < actualAllowedValues.Length; i++)
+            {
+                Assert.Equal(expectedAnswer[i], actualAllowedValues[i]);
+            }
         }
 
         [Fact]
