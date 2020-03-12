@@ -45,9 +45,9 @@ namespace CronParser.Tests.Unit.Operations
 
             var allowedValues = new Dictionary<int, bool>();
 
-                _singleOperation.Apply(allowedValues, ExpectedMinRange, ExpectedMaxRange, $"{expectedAllowedValue}");
+            _singleOperation.Apply(allowedValues, ExpectedMinRange, ExpectedMaxRange, $"{expectedAllowedValue}");
 
-                Assert.True(allowedValues[expectedAllowedValue]);
+            Assert.True(allowedValues[expectedAllowedValue]);
         }
     }
 }
