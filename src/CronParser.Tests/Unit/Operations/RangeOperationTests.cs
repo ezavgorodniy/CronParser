@@ -11,7 +11,6 @@ namespace CronParser.Tests.Unit.Operations
         private const int ExpectedMaxRange = 5;
         private readonly RangeOperation _rangeOperation = new RangeOperation();
 
-
         [Theory]
         [InlineData("1-2-3")]
         [InlineData("1")]
@@ -65,7 +64,7 @@ namespace CronParser.Tests.Unit.Operations
         }
 
         [Fact]
-        public void MaxRangeLessExpectedMaxRangeExpectIndexOutOfRangeException()
+        public void MaxRangeGreaterExpectedMaxRangeExpectIndexOutOfRangeException()
         {
             Assert.Throws<IndexOutOfRangeException>(() =>
             {

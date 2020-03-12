@@ -30,11 +30,11 @@ namespace CronParser.Core.Internal.Operations
             }
             if (minRangeToApply < minRange)
             {
-                throw new IndexOutOfRangeException("minRange to apply should be less than overall minRange");
+                throw new IndexOutOfRangeException("minRange to apply should be greater than overall minRange");
             }
             if (maxRangeToApply > maxRange)
             {
-                throw new IndexOutOfRangeException("maxRange to apply should be greater than maxRange");
+                throw new IndexOutOfRangeException("maxRange to apply should be less than maxRange");
             }
 
             for (int i = minRangeToApply; i <= maxRangeToApply; i++)
