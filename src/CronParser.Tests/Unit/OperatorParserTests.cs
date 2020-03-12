@@ -150,5 +150,15 @@ namespace CronParser.Tests.Unit
                 Assert.Equal(i + 1, actualAllowedValues[i]);
             }
         }
+
+        [Theory]
+        [InlineData("5W")]
+        [InlineData("6L")]
+        [InlineData("6#3")]
+        public void UnsupportedOperationsShouldThrowParserException(string unsupportedOperation)
+        {
+            _mockWordsFinderHelper.Setup(helper => helper.FindWords(It.IsAny<string>())).Returns(new string[0]);
+            Assert.Throws<ParserException>(() => _operatorParser.ParseAllowedValues(unsupportedOperation));
+        }
     }
 }
